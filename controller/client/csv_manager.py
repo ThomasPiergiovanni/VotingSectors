@@ -7,9 +7,9 @@ import os
 class CsvManager:
    
     def import_data(
-            self, path_to_file, filename, delimiter, quotechar
+            self, directory, filename, delimiter, quotechar
     ):
-        data_file = os.path.join(path_to_file, filename)
+        data_file = os.path.join(directory, filename)
         with open(data_file, 'r', newline='', encoding='utf8') as file:
             read_file = csv.reader(
                 file, delimiter=delimiter, quotechar=quotechar
@@ -19,8 +19,8 @@ class CsvManager:
                 data.append(row)
             return data
     
-    def export_data(self, path_to_file, filename, data):
-        data_file = os.path.join(path_to_file, filename)
+    def export_data(self, directory, filename, data):
+        data_file = os.path.join(directory, filename)
         with open(data_file, 'w', newline='',  encoding='utf8') as file:
             filewriter = csv.writer(
                 file, delimiter=';',
@@ -39,7 +39,7 @@ class CsvManager:
                     [
                         item['id'],
                         item['address'],
-                        item['new_address'],
+                        item['voting_sector'],
                         item['match']
                         ]
                 )
