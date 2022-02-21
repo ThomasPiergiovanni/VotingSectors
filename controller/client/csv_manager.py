@@ -19,7 +19,7 @@ class CsvManager:
                 data.append(row)
             return data
     
-    def export_data(self, directory, filename, data):
+    def export_pre_run_data(self, directory, filename, data):
         data_file = os.path.join(directory, filename)
         with open(data_file, 'w', newline='',  encoding='utf8') as file:
             filewriter = csv.writer(
@@ -42,4 +42,31 @@ class CsvManager:
                         item[2],
                         item[3]
                         ]
+                )
+
+    def export_run_data(self, directory, filename, data):
+        data_file = os.path.join(directory, filename)
+        with open(data_file, 'w', newline='',  encoding='utf8') as file:
+            filewriter = csv.writer(
+                file, delimiter=';',
+                quotechar='"',
+                quoting=csv.QUOTE_MINIMAL
+            )
+            filewriter.writerow([
+                "id",
+                "numero",
+                "nom_rue",
+                "nom_complet",
+                "bureau"
+                ]
+            )
+            for item in data:
+                filewriter.writerow(
+                    [
+                        item['id'],
+                        str(item['number']),
+                        item['street_name'],
+                        item['full_address'],
+                        item['sector']
+                    ]
                 )
